@@ -1,0 +1,187 @@
+#!/bin/bash
+
+# Chequear si existen diferencias entre los archivos, y luego
+# reemplazar si existe
+
+# Si estás leyendo esto, posiblemente no entiendas los comentarios XD.
+
+alias diff='diff --color'
+# Archivos (ó subdirectorios) a chequear que se ubican en /etc
+declare -a _etc_subs=(
+    #"X11/xorg.conf.d/"
+    "X11/xorg.conf.d/"
+    "vconsole.conf"
+    "issue"
+)
+
+# Archivos (ó subdirectorios) a chequear que se ubican en $HOME
+declare -a _home_subs=(
+    #'.config/Code\ -\ OSS/User/'
+)
+
+# Archivos (ó subdirectorios relacionados con la personalización
+# y el entorno actual de escritorio)
+declare -a _custom_subs=(
+    ".config/termite"
+    ".config/i3"
+    ".config/i3blocks"
+    ".config/dunst"
+    ".config/rofi"
+    ".config/picom"
+)
+
+function check_is_file() {
+    if [[ -d $1 ]]; then
+        return 1
+    elif [[ -f $1 ]]; then
+        return 0
+    else
+        echo "El archivo $1 no existe"
+        exit 1
+    fi
+}
+
+function check_if_file_exists() {
+    if [[ -f $1 ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+
+# El primer parametro es el prefijo.
+# Es decir, el directorio padre dónde vamos a buscar nuestros
+# subdirectorios o archivos, es importante que no tenga el
+# slash final. Por ejemplo, no es /etc/, es /etc.
+# El segundo parametro es el subdirectorio o archivo a revisar.
+function check_diff_n_copy() {
+    if ! check_is_file "$1/$2"; then
+        # Es directorio, entonces
+        # iterar sobre los archivos recursivamente
+        # Iterar sobre los sub-directorios de nuestro directorio,
+        # creando cada subdirectorio hijo
+        for folder in $(find $1/$2 -type d); do
+            mkdir -p "${folder:1}"
+
+            for file in $(find $folder -maxdepth 1 -type f); do
+                if ! check_if_file_exists ${file:1}; then
+                    echo "El archivo $(pwd)${file:1} no existe, creando.."
+                    cp $file ${file:1}
+                else
+                    if ! diff $file ${file:1}; then
+                        echo "Existen diferencias entre \
+                                                $file y ${file:1}, restaurando.."
+                        cp $file ${file:1}
+                    fi
+                fi
+            done
+        done
+
+    else
+        # El parametro es un archivo ..
+        file="$1/$2"
+        if ! diff $file ${file:1}; then
+            echo "Existen diferencias entre \
+                     $file y ${file:1}, restaurando.."
+            cp $file ${file:1}            
+        fi
+    fi    
+}
+
+# El primer parametro es el prefijo.
+# Es decir, el directorio padre dónde vamos a buscar nuestros
+# subdirectorios o archivos, es importante que no tenga el
+# slash final. Por ejemplo, no es /etc/, es /etc.
+# El segundo parametro es el nombre alternativo dónde se copian
+# los archivos ubicados en nuestro prefijo. Es decir
+# si el prefijo es /home/foo, y el nombre alternativo es bar
+# entonces se creará un sub directorio llamado bar dónde se copiaran
+# los archivos deseados.
+# El tercer parametro es el subdirectorio del primer parametro
+# a revisar.
+function check_diff_n_copy_other() {
+    if ! check_is_file "$1/$3"; then
+        # Es directorio, entonces
+        # iterar sobre los archivos recursivamente
+        # Iterar sobre los sub-directorios de nuestro directorio,
+        # creando cada subdirectorio hijo
+        for folder in $(find $1/$3 -type d); do
+            mkdir -p "$2${folder#$1}"
+
+            for file in $(find $folder -maxdepth 1 -type f); do
+                if ! check_if_file_exists $2/${file/#$1}; then
+                    echo "El archivo $(pwd)/$2${file/#$1} no existe, creando.."
+                    cp $file $2${file/#$1}
+                else
+                    if ! diff $file $2${file/#$1}; then
+                        echo "Existen diferencias entre \
+                                                $file y $2${file/#$1}, restaurando.."
+                        cp $file $2${file/#$1}
+                    fi
+                fi
+            done
+        done
+
+    else
+        # El parametro es un archivo ..
+        file="$1/$3"
+        if ! diff $file $2${file/#$1} ; then
+            echo "Existen diferencias entre \
+                     $file y $2${file/#$1}, restaurando.."
+            cp $file $2${file/#$1}            
+        fi
+    fi    
+}
+
+
+declare -a __others=(
+    "my" # home
+    "my-desktop-1" # i3 gaps desktop
+)
+
+function check_diff_etc() {
+    check_diff_n_copy "/etc" $1
+}
+
+function check_diff_home() {
+    check_diff_n_copy_other "$HOME" "my" $1
+}
+
+function check_diff_desktop_customization() {
+    check_diff_n_copy_other "$HOME" "my-desktop-1" $1
+}
+
+
+function main() {
+
+    if [ "$1" = "clean" ] ; then
+        echo "Limpiando backups"
+        rm -rf "etc/" "my/"
+        exit 0
+    elif [ "$1" = "-h" ] ; then
+        echo "Parametros disponibles"
+        echo "-h : Muestra esta ayuda"
+        echo "clean : Limpia las backups"
+        exit 0
+    fi
+
+    for i in "${_etc_subs[@]}"; do
+        check_diff_etc $i
+    done
+
+    for i in "${_home_subs[@]}"; do
+        check_diff_home $i
+    done
+
+    for i in "${_custom_subs[@]}"; do
+        check_diff_desktop_customization $i
+    done
+
+    
+
+    echo "Se han resuelto diferencias"
+    echo "Se añadieron archivos"
+}
+
+main $1

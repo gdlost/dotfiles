@@ -1,0 +1,9 @@
++---------------------------------------------------+
+|               INFORMACIÓN IMPORTANTE (?)          |
++---------------------------------------------------+
+
+> Estas son mis configuraciones para mis aplicaciones
+
+> Los contenidos de la carpeta etc, va en /etc/
+> Los contenidos de la carpeta my van en el $HOME (ó ~)
+
