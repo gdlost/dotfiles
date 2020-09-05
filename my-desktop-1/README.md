@@ -1,1 +1,1 @@
-[img]: screenshot.png
+![img](screenshot.png)
