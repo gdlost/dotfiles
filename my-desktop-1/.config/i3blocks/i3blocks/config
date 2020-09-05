@@ -1,4 +1,4 @@
-separator_block_width=15
+separator_block_width=16
 
 [packages]
 label= 
@@ -46,4 +46,4 @@ interval=1
 [shutdown]
 full_text=
 command=~/.config/i3blocks/scripts/rofi_shutdown/my_menu.sh
-
+min_width=32
