@@ -1,0 +1,141 @@
+/**
+ * rofi -dump-theme output.
+ * Rofi version: 1.5.4
+ **/
+* {
+    font: "Liberation Mono 13";
+    red:                         rgba ( 220, 50, 47, 100 % );
+    selected-active-foreground:  var(background);
+    lightfg:                     rgba ( 88, 104, 117, 100 % );
+    separatorcolor:              var(foreground);
+    urgent-foreground:           var(red);
+    alternate-urgent-background: var(lightbg);
+    lightbg:                     rgba ( 238, 232, 213, 100 % );
+    spacing:                     2;
+    border-color:                var(foreground);
+    normal-background:           var(background);
+    background-color:            rgba ( 0, 0, 0, 0 % );
+    alternate-active-background: var(lightbg);
+    active-foreground:           var(blue);
+    blue:                        rgba ( 38, 139, 210, 100 % );
+    urgent-background:           var(background);
+    alternate-normal-foreground: var(foreground);
+    selected-active-background:  var(blue);
+    background:                  rgba ( 253, 246, 227, 100 % );
+    selected-normal-foreground:  var(lightbg);
+    active-background:           var(background);
+    alternate-active-foreground: var(blue);
+    alternate-normal-background: var(lightbg);
+    foreground:                  rgba ( 0, 43, 54, 100 % );
+    selected-urgent-background:  var(red);
+    selected-urgent-foreground:  var(background);
+    normal-foreground:           var(foreground);
+    alternate-urgent-foreground: var(red);
+    selected-normal-background:  var(lightfg);
+}
+window {
+    padding:          5;
+    background-color: rgba( 39, 43, 72, 50 % );
+    border:           1;
+}
+mainbox {
+    padding: 0;
+    border:  0;
+}
+message {
+    padding:      1px ;
+    border-color: var(separatorcolor);
+    border:       2px solid 0px 0px ;
+}
+textbox {
+    text-color: var(foreground);
+}
+listview {
+    padding:      2px 0px 0px ;
+    scrollbar:    true;
+    border-color: var(separatorcolor);
+    spacing:      2px ;
+    fixed-height: 0;
+    border:       2px dash 0px 0px ;
+}
+element {
+    padding: 1px ;
+    border:  0;
+}
+element normal.normal {
+    text-color:       rgba(255, 255, 255, 100%);
+}
+element normal.urgent {
+    text-color:       var(urgent-foreground);
+}
+element normal.active {
+    text-color:       rgba(232, 171, 153, 100%);
+}
+element selected.normal {
+    background-color: rgba(34, 38, 65, 50%);
+    text-color:       rgba(255, 255, 255, 100%); 
+}
+element selected.urgent {
+    background-color: var(selected-urgent-background);
+    text-color:       var(selected-urgent-foreground);
+}
+element selected.active {
+    background-color: rgba(34, 38, 65, 100%);
+    text-color:       rgba(226, 192, 193, 100%); 
+}
+element alternate.normal {
+    text-color:       rgba(255, 255, 255, 100%); 
+}
+element alternate.urgent {
+    text-color:       var(alternate-urgent-foreground);
+}
+element alternate.active {
+    text-color:       rgba(232, 171, 153, 100%);
+    }
+scrollbar {
+    width:        4px ;
+    padding:      0;
+    handle-width: 8px ;
+    border:       0;
+    handle-color: rgba(34, 38, 65, 50%); 
+}
+mode-switcher {
+    border-color: var(separatorcolor);
+    border:       2px solid 0px 0px ;
+}
+button {
+    spacing:    0;
+    text-color: var(normal-foreground);
+}
+button selected {
+    background-color: var(selected-normal-background);
+    text-color:       var(selected-normal-foreground);
+}
+inputbar {
+    padding:    1px ;
+    spacing:    0px ;
+    text-color: rgba(255, 255, 255, 100%); 
+    children:   [ prompt,textbox-prompt-colon,entry,overlay,case-indicator ];
+}
+case-indicator {
+    spacing:    0;
+    text-color: var(normal-foreground);
+}
+entry {
+    spacing:    0;
+    text-color: rgba(255, 255, 255, 100%);
+}
+prompt {
+    spacing:    0;
+    text-color: rgba(255, 255, 255, 100%); 
+}
+textbox-prompt-colon {
+    margin:     0px 0.3000em 0.0000em 0.0000em ;
+    expand:     false;
+    str:        ":";
+    text-color: inherit;
+}
+error-message {
+    background-color: rgba ( 0, 0, 0, 0 % );
+    text-color:       var(normal-foreground);
+}

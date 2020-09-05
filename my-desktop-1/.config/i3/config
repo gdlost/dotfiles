@@ -159,8 +159,8 @@ bindsym XF86AudioRaiseVolume exec "amixer sset Master 2%+ && pkill -RTMIN+10 i3b
 # Pantalla
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 5 && pkill -RTMIN+10 i3blocks"
 bindsym XF86MonBrightnessDown exec "xbacklight -dec 5 && pkill -RTMIN+10 i3blocks"
-bindsym $mod+Tab exec "rofi -show window"
-bindsym $mod+d exec --no-startup-id rofi -show run
+bindsym $mod+Tab exec "rofi -show window -theme ~/.config/rofi/yea.rasi"
+bindsym $mod+d exec --no-startup-id rofi -show run -theme ~/.config/rofi/yea.rasi
 
 client.focused #252946 #285577 #ffffff #2e9ef4 #252946
 
