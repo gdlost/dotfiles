@@ -1,9 +1,6 @@
-+---------------------------------------------------+
-|               INFORMACIÓN IMPORTANTE (?)          |
-+---------------------------------------------------+
-
-> Estas son mis configuraciones para mis aplicaciones
-
-> Los contenidos de la carpeta etc, va en /etc/
-> Los contenidos de la carpeta my van en el $HOME (ó ~)
+Mis configuraciones:
+etc: Contiene archivos de /etc/
+usr: Contiene archivos de /usr/
+my-apps: Contiene configuraciones que se ubican en $HOME
+my-desktop-1: Contiene las configuraciones del entorno de escritorio, junto a una captura del mismo
 

@@ -1,0 +1,9 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = *
+[Action]
+Exec = /bin/pkill -RTMIN+11 i3blocks
+When = PostTransaction

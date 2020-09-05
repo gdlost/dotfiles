@@ -1,0 +1,97 @@
+/**
+ * rofi -dump-theme output.
+ * Rofi version: 1.5.4
+ **/
+* {
+    red:                         rgba ( 220, 50, 47, 100 % );
+    selected-active-foreground:  var(background);
+    lightfg:                     rgba ( 88, 104, 117, 100 % );
+    separatorcolor:              var(foreground);
+    urgent-foreground:           var(red);
+    alternate-urgent-background: var(lightbg);
+    lightbg:                     rgba ( 238, 232, 213, 100 % );
+    spacing:                     2;
+    border-color:                var(foreground);
+    normal-background:           var(background);
+    background-color:            rgba ( 0, 0, 0, 0 % );
+    alternate-active-background: var(lightbg);
+    active-foreground:           var(blue);
+    blue:                        rgba ( 38, 139, 210, 100 % );
+    urgent-background:           var(background);
+    alternate-normal-foreground: var(foreground);
+    selected-active-background:  var(blue);
+    background:                  rgba ( 253, 246, 227, 100 % );
+    selected-normal-foreground:  var(lightbg);
+    active-background:           var(background);
+    alternate-active-foreground: var(blue);
+    alternate-normal-background: var(lightbg);
+    foreground:                  rgba ( 0, 43, 54, 100 % );
+    selected-urgent-background:  var(red);
+    selected-urgent-foreground:  var(background);
+    normal-foreground:           var(foreground);
+    alternate-urgent-foreground: var(red);
+    selected-normal-background:  var(lightfg);
+}
+window {
+    padding:          15px;
+    background-color: rgba( 29, 31, 40, 100 % );
+    border:           1;
+    location: center;
+    width: 582px;
+    children: [mainbox];
+    
+}
+mainbox {
+    padding: 2px;
+    children: [listview];
+}
+inputbar { enabled: false;}
+
+listview {
+    spacing:      5px ;
+    layout: horizontal;
+    lines: 5;
+}
+
+element {
+    padding: 40px ;
+    border:  0;
+}
+element normal.normal {
+    background-color: var(normal-background);
+    text-color:       var(normal-foreground);
+}
+element normal.urgent {
+    background-color: rgba( 255, 0, 0, 100% );
+    text-color: rgba( 255, 255, 255, 100% );
+}
+element normal.active {
+    background-color: var(active-background);
+    text-color:       var(active-foreground);
+}
+element selected.normal {
+    background-color: var(selected-normal-background);
+    text-color:       var(selected-normal-foreground);
+}
+element selected.urgent {
+    backgroud-color: rgba( 255, 0, 0, 100% );
+    text-color:       var(selected-urgent-foreground);
+}
+element selected.active {
+    background-color: var(selected-normal-background);
+    text-color:       var(selected-active-foreground);
+}
+element alternate.normal {
+    background-color: var(alternate-normal-background);
+    text-color:       var(alternate-normal-foreground);
+}
+element alternate.urgent {
+    //background-color: var(alternate-urgent-background);
+    background-color: rgba (255, 0, 255, 100% );
+    text-color:       var(alternate-urgent-foreground);
+}
+element alternate.active {
+    background-color: var(alternate-active-background);
+    text-color:       var(alternate-active-foreground);
+}
+

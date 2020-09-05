@@ -1,0 +1,3 @@
+pkgs=$(pacman -Q | wc -l)
+echo $pkgs
+echo "#00FFFF"
