@@ -3,6 +3,7 @@
 * rofi
 * termite
 * font awesome 5
+* i3lock-fancy
 
 
 ![img](screenshot.png)
