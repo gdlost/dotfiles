@@ -4,6 +4,7 @@
 * termite
 * font awesome 5
 * i3lock-fancy
+* cursor: pixelfun3-eclipse
 
 
 ![img](screenshot.png)
