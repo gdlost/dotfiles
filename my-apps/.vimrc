@@ -1,33 +1,72 @@
-call plug#begin('/home/juan/.vim/plugged')
+" General config {{{1
+if has('gui')
+	set guifont=Liberation\ Mono\ 12
+endif
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+colorscheme desert
 
-Plug 'preservim/nerdtree'
-call plug#end()
+syntax on
+set number
+set norelativenumber
+set showcmd
+set ruler
 
-source $VIMRUNTIME/defaults.vim
-let g:powerline_pycmd="py3"
-python3 from powerline.vim import setup as powerline_setup
-python3 powerline_setup()
-python3 del powerline_setup
-
-
-set laststatus=2
-set showtabline=2
-set noshowmode
-set t_Co=256
-" Line numbers and colors
-set relativenumber
-highlight LineNr ctermfg=grey
-" Heredar indentación de líneas anteriores
 set autoindent
-" Tabs son 8 espacios
-set expandtab
-set tabstop=8
+set noexpandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 
-" tabs para los makefile
-autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
-
-" no bell
 set noerrorbells
-map <C-n> :NERDTreeToggle<CR>
+set foldmethod=marker
+set modeline
+set modelines=5
+set backspace=indent,eol,start
+
+set wildmenu
+
+" Si se intenta abrir un archivo con la flag '-M' de vim
+" entonces, se evita el mensaje de error
+" Por cierto, yo solo trabajo con archivos con LF=unix '\n'
+if &modifiable
+	set ff=unix
+endif
+set nowrap
+
+"set cinoptions=l1
+set tags+=~/.vim/systags
+
+"}}}
+
+nnoremap <space> <nop>
+let mapleader="\<Space>"
+
+nnoremap <leader>n gt
+nnoremap <leader>b gT
+nnoremap <leader>u gUiw
+nnoremap <leader>l guiw
+
+" }}}
+
+" functions
+function CAddIncludeGuards()
+	let l:filename = toupper(fnamemodify(expand('%t'), ":r"))
+	call append(0, "#ifndef " . l:filename . "_H")
+	call append(1, "#define " . l:filename . "_H")
+	call append(2, "")
+	call append(3, "/* protos and macros goes here */")
+	call append(4, "")
+	call append(5, "#endif /* " . l:filename . "_H */")
+endfunction
+
+" autocmd {{{1
+autocmd FileType make setlocal noexpandtab shiftwidth=9 softtabstop=8
+autocmd FileType c setlocal omnifunc=ccomplete#Complete
+autocmd FileType html setlocal tabstop=2 softtabstop=2
+autocmd FileType python setlocal tabstop=4 softtabstop=4
+
+augroup programmingC
+	autocmd BufNewFile *.h call CAddIncludeGuards()
+augroup END
+
+" }}}
