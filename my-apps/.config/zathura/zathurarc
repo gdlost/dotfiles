@@ -1,0 +1,8 @@
+map <C-i> recolor
+# zenburn theme :p
+set recolor-darkcolor "#dcdccc"
+set recolor-lightcolor "#262626"
+set default-bg "#262626"
+set statusbar-bg "#3f3f3f"
+set statusbar-fg "#dcdccc"
+set recolor-keephue true
